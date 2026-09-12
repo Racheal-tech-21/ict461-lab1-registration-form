@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICT461 Course Registration</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 0 15px;
+  }
+
+  h1 {
+    font-size: 1.4rem;
+  }
+
+  label {
+    display: block;
+    margin-top: 15px;
+    font-weight: bold;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 6px;
+    margin-top: 4px;
+    font-size: 1rem;
+  }
+
+  .error {
+    color: red;
+    font-size: 0.85rem;
+    display: none;
+  }
+
+  .error.show {
+    display: block;
+  }
+
+  button {
+    margin-top: 20px;
+    padding: 8px 16px;
+    font-size: 1rem;
+  }
+
+  #result {
+    margin-top: 15px;
+    display: none;
+  }
+
+  #result.show {
+    display: block;
+  }
+</style>
+</head>
+<body>
+
+<h1>ICT461 Course Registration</h1>
+
+<form id="regForm">
+
+  <label for="fullName">Full Name</label>
+  <input type="text" id="fullName" name="fullName" required>
+  <span class="error" id="err-fullName">Please enter your name.</span>
+
+  <label for="studentId">Student ID</label>
+  <input type="text" id="studentId" name="studentId" required>
+  <span class="error" id="err-studentId">Please enter your student ID.</span>
+
+  <label for="programme">Programme</label>
+  <select id="programme" name="programme" required>
+    <option value="">-- Select programme --</option>
+    <option value="BSc Computer Science">BSc Computer Science</option>
+    <option value="BSc Information Technology">BSc Information Technology</option>
+    <option value="BSc Software Engineering">BSc Software Engineering</option>
+  </select>
+  <span class="error" id="err-programme">Please select a programme.</span>
+
+  <label for="course">Course</label>
+  <input type="text" id="course" name="course" placeholder="e.g. ICT461" required>
+  <span class="error" id="err-course">Please enter a course.</span>
+
+  <button type="submit">Register</button>
+
+  <p id="result"></p>
+
+</form>
+
+<script>
+  const form = document.getElementById("regForm");
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    let valid = true;
+    const fields = ["fullName", "studentId", "programme", "course"];
+
+    fields.forEach(function (id) {
+      const field = document.getElementById(id);
+      const error = document.getElementById("err-" + id);
+      if (field.value.trim() === "") {
+        error.classList.add("show");
+        valid = false;
+      } else {
+        error.classList.remove("show");
+      }
+    });
+
+    const result = document.getElementById("result");
+    if (valid) {
+      result.textContent = "Registration submitted for " + document.getElementById("fullName").value + ".";
+      result.classList.add("show");
+    } else {
+      result.classList.remove("show");
+    }
+  });
+</script>
+
+</body>
+</html>
